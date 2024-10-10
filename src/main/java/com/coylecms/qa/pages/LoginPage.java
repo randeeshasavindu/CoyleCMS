@@ -1,9 +1,14 @@
 package com.coylecms.qa.pages;
 
 import com.coylecms.qa.base.TestBase;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LoginPage extends TestBase {
 
@@ -22,7 +27,7 @@ public class LoginPage extends TestBase {
     @FindBy(xpath = "//input[@id='remember_me']")
     WebElement rememberMe_chkBox;
 
-    @FindBy(xpath = "/html/body/app-root/app-login/div/div/div/div/div[1]/img")
+    @FindBy(xpath = "//img[@class='ratio-1 w-100']")
     WebElement COYLELogo;
 
     //initializing the page object
@@ -38,12 +43,13 @@ public class LoginPage extends TestBase {
         return COYLELogo.isDisplayed();
     }
 
-    public DashboardPage login(String un, String pwd){
+    public CoyleMembersPage login(String un, String pwd){
         username.sendKeys(un);
         password.sendKeys(pwd);
         loginBtn.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        return new DashboardPage();
+        return new CoyleMembersPage();
 
     }
 }
