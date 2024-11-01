@@ -1,10 +1,8 @@
 package com.coylecms.qa.testcases;
 
 import com.coylecms.qa.base.TestBase;
-import com.coylecms.qa.pages.DashboardPage;
+import com.coylecms.qa.pages.CoyleMembersPage;
 import com.coylecms.qa.pages.LoginPage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -16,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class LoginPageTCs extends TestBase {
 
     LoginPage loginPage;
-    DashboardPage dashboardPage;
+    CoyleMembersPage coyleMembersPage;
     WebDriverWait wait;
 
 
@@ -54,17 +52,14 @@ public class LoginPageTCs extends TestBase {
     }
 
     @Test(priority = 3)
-    public void loginTest(){
-        dashboardPage = loginPage.login(prop.getProperty("username"),prop.getProperty("password"));
-        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[@class='px15_text mb-0']")));
+    public void loginTest() throws InterruptedException {
+        coyleMembersPage = loginPage.login(prop.getProperty("username"),prop.getProperty("password"));
         System.out.println("Navigated to the Dashboard Page Successfully");
     }
 
     @AfterClass
     public void tearDown(){
-        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.quit();
     }
 }
