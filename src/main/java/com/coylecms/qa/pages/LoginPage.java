@@ -43,11 +43,12 @@ public class LoginPage extends TestBase {
         return COYLELogo.isDisplayed();
     }
 
-    public CoyleMembersPage login(String un, String pwd){
+    public CoyleMembersPage login(String un, String pwd) throws InterruptedException {
         username.sendKeys(un);
         password.sendKeys(pwd);
         loginBtn.click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        Thread.sleep(3000);
 
         return new CoyleMembersPage();
 

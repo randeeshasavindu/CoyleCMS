@@ -21,7 +21,7 @@ public class CoyleMembersPageTCs extends TestBase {
     }
 
     @BeforeClass
-    public void setUp(){
+    public void setUp() throws InterruptedException {
         initialization();
         loginPage = new LoginPage();
         CoyleMembersPage = loginPage.login(prop.getProperty("username"),prop.getProperty("password"));
@@ -59,7 +59,7 @@ public class CoyleMembersPageTCs extends TestBase {
     }
 
     @Test(priority = 4)
-    public void clickCoyleMembersBtn(){
+    public void clickCoyleMembersBtn() throws InterruptedException {
         CoyleMembersPage.clickCoyleMembersTab();
     }
 
@@ -101,6 +101,30 @@ public class CoyleMembersPageTCs extends TestBase {
         CoyleMembersPage.searchForNumber();
         /*Thread.sleep(1500);*/
     }
+
+    @Test(priority = 10)
+    public void clickSectorsTab() throws InterruptedException {
+        CoyleMembersPage.clickSectorsBtn();
+    }
+
+    @Test(priority = 11)
+    public void clickAddSectorBtn(){
+
+        CoyleMembersPage.clickAddSectorBtn();
+    }
+
+    @Test(priority = 12)
+    public void typeSectorName() throws InterruptedException {
+        CoyleMembersPage.typeSectorName();
+    }
+
+    @Test(priority = 13)
+    public void searchSectorNumber() throws InterruptedException {
+        CoyleMembersPage.searchForSector();
+        /*Thread.sleep(1500);*/
+    }
+
+
 
     /*@AfterClass
     public void tearDown(){

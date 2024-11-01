@@ -52,7 +52,7 @@ public class LoginPageTCs extends TestBase {
     }
 
     @Test(priority = 3)
-    public void loginTest(){
+    public void loginTest() throws InterruptedException {
         coyleMembersPage = loginPage.login(prop.getProperty("username"),prop.getProperty("password"));
         System.out.println("Navigated to the Dashboard Page Successfully");
     }

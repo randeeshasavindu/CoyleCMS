@@ -17,7 +17,7 @@ public class TestBase {
     public static Properties prop;
 
 
-    public TestBase(){
+    public TestBase(){ //constructor
         try {
             prop = new Properties();
             FileInputStream ip = new FileInputStream("src/main/java/com/coylecms/qa/config/config.properties");

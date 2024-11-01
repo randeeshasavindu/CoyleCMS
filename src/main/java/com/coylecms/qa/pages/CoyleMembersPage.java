@@ -1,11 +1,16 @@
 package com.coylecms.qa.pages;
 
 import com.coylecms.qa.base.TestBase;
+import dev.failsafe.internal.util.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+
+import java.time.Duration;
 
 public class CoyleMembersPage extends TestBase {
 
@@ -20,9 +25,6 @@ public class CoyleMembersPage extends TestBase {
 
     @FindBy(xpath = "//p[normalize-space()='COYLE Members']")
     WebElement CoyleMembersTab;
-
-    @FindBy(xpath = "/html/body/app-root/app-dashboard/mat-drawer-container/mat-drawer/div/div/div[2]/app-nav-parent/mat-tree/mat-nested-tree-node[1]/div[2]")
-    WebElement expandedList;
 
     @FindBy(xpath = "//p[normalize-space()='Categories']")
     WebElement CategoriesBtn;
@@ -66,7 +68,8 @@ public class CoyleMembersPage extends TestBase {
     @FindBy(xpath = "//p[normalize-space()='Logout']")
     WebElement LogoutBtn;
 
-    //initializing the dashboardPage
+    @FindBy(xpath = "//button[@class='btn parent_active px-5 py-2']")
+    WebElement addSectorBtn;
 
     public CoyleMembersPage(){
         PageFactory.initElements(driver,this);
@@ -83,31 +86,32 @@ public class CoyleMembersPage extends TestBase {
 
     public boolean validateCoyleNameDisplay(){
         return CoyleName.isDisplayed();
+
     }
 
-    public void clickCoyleMembersTab(){
+    public void clickCoyleMembersTab() throws InterruptedException {
         CoyleMembersTab.click();
+        Thread.sleep(3000);
     }
 
-    public boolean validateExpandedList(){
-        return expandedList.isDisplayed();
-    }
 
     public void clickAddCategoriesBtn(){
         AddCategoriesBtn.click();
     }
 
-    public Void addRandomNumberToCategory(String number){
+    public Void addRandomNumberToCategory(String number) throws InterruptedException {
         enterCatNumber.clear();  // Clear the field first
         enterCatNumber.sendKeys("Category " + number);  // Send the generated number
+        Thread.sleep(3000);
         return null;
     }
 
     public void selectCategory() throws InterruptedException {
         clickCategoryDropDown.click();
-        Thread.sleep(1500);
+        Thread.sleep(3000);
         category1.click();
         category2.click();
+        Thread.sleep(3000);
     }
 
     public void clickAdd() throws InterruptedException {
@@ -115,9 +119,10 @@ public class CoyleMembersPage extends TestBase {
         popupBG.click();
 
         addBtn.click();
+        Thread.sleep(3000);
         WebElement addSuccessMsgCloseBtn = driver.findElement(By.xpath("//mat-icon[normalize-space()='close']"));
         addSuccessMsgCloseBtn.click();
-        Thread.sleep(1500);
+        Thread.sleep(3000);
     }
 
     public void searchForNumber() throws InterruptedException {
@@ -133,8 +138,79 @@ public class CoyleMembersPage extends TestBase {
 
     }}
 
+    public void clickSectorsBtn() throws InterruptedException {
+        SectorsBtn.click();
+        Thread.sleep(2000);
+
+    }
+
+    public void clickAddSectorBtn(){
+        addSectorBtn.click();
+    }
+
+    public void typeSectorName() throws InterruptedException {
+        /*WebElement SectorName = driver.findElement(By.xpath("//input[@id='mat-input-1']"));
+        SectorName.click();
+        Thread.sleep(1000);
+
+        SectorName.sendKeys("TestAutomationSector");
+        Thread.sleep(1000);*/
+
+        // Wait for the popup to appear (explicit wait)
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement popup = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[@class='px15_text col-12 mb-1 text-center']")));
+
+// Now, locate the text field within the popup
+        WebElement closeBtn = popup.findElement(By.xpath("//mat-icon[normalize-space()='close']"));
+
+        Thread.sleep(3000);
+        closeBtn.click();
+        Thread.sleep(3000);
+    }
+
+
+// Enter text into the text field
+        /*textField.sendKeys("AutomationSector");*/
+
+        /*SectorNameField.sendKeys("TestAutomationSector");
+        for (char c : "TestAutomationSector".toCharArray()) {
+            SectorNameField.sendKeys(Character.toString(c)); //typing the text slowly
+            Thread.sleep(200);*/
+        public void searchForSector() throws InterruptedException {
+
+            //verify the sectors title
+/*
+            WebElement verifySectorsTitle = driver.findElement(By.xpath("/html/body/app-root/app-dashboard/mat-drawer-container/mat-drawer-content/section/app-sectors/section/div[1]/div[1]/h2"));
+            String actualText = verifySectorsTitle.getText();
+
+            String expectedText = "Sectors";
+
+            assertEquals("Correct text is displayed",actualText,expectedText);*/
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement SectorSearchBar = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"mat-input-4\"]")));  // Locate the search bar
+            SectorSearchBar.click();
+            SectorSearchBar.clear();  // Clear any existing text in the search bar
+            String sectorName = "TestSector0001";
+            for (char c : sectorName.toCharArray()) {
+                SectorSearchBar.sendKeys(Character.toString(c)); //typing the text slowly
+                Thread.sleep(200);
+                /* searchBar.sendKeys("Category0001");
+                 *//*searchBar.sendKeys(Keys.ENTER);*/
+
+            }}
+    }
 
 
 
 
-}
+
+
+
+
+
+
+
+
+
+
